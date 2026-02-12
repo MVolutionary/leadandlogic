@@ -27,7 +27,7 @@
       --line: rgba(255,255,255,.08);
       --gold: #d4b06a;
       --gold2: #f1d39a;
-      --max-width: 1140px;
+          --max-width: 1280px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -102,7 +102,7 @@
     .secHead h2 { margin: 0; font-size: 28px; letter-spacing: -.3px; }
     .secHead p { margin: 0; color: var(--muted); max-width: 60ch; }
 
-    .cards3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    ..cards3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 14px; }
     .card2 {
       padding: 18px; border-radius: 18px; border: 1px solid var(--line);
       background: rgba(255,255,255,.03);
@@ -259,7 +259,17 @@
         <h2>Pakete</h2>
         <p>Klare Pakete statt offene Baustelle. Enterprise gibt’s, wenn Skalierung und Komplexität es erfordert.</p>
       </div>
-      <div class="cards3">
+    <              <div class="card2">
+        <div class="tag">Mini</div>
+        <div class="price">299€ <small>einmalig</small></div>
+        <ul>
+          <li>Bedarfsanalyse + Quick Blueprint</li>
+          <li>1 vereinfachter Workflow</li>
+          <li>E-Mail/CRM-Integration light</li>
+          <li>Kurz-Doku</li>
+        </ul>
+      </div>
+<div class="cards3">
         <div class="card2">
           <div class="tag">Starter</div>
           <div class="price">999€ <small>einmalig</small></div>
