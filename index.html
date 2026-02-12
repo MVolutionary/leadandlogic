@@ -2,44 +2,117 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Lead & Logic | KI-Automatisierung</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead & Logic – KI-Automatisierung für dein Business</title>
+<meta name="description" content="Lead & Logic bietet maßgeschneiderte KI‑Automatisierungslösungen, um deine Geschäftsprozesse zu optimieren und zu skalieren.">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3QgZmlsbD0iIzAwNjZjYyIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIi8+PHRleHQgeD0iMTYiIHk9IjIxIiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0iQXJpYWwiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MTDwvdGV4dD48L3N2Zz4=" type="image/svg+xml">
 <style>
 body { font-family: Arial, sans-serif; margin: 0; background: #f7f7f7; color: #333; line-height: 1.6; }
-header { background: #121a2a; color: #fff; padding: 40px 20px; text-align: center; }
-header h1 { margin: 0; font-size: 2.5rem; }
-header p { margin-top: 10px; font-size: 1.2rem; }
-section { padding: 40px 20px; }
-.services ul { list-style: none; padding: 0; }
-.services li { margin: 10px 0; font-weight: bold; }
-footer { background: #121a2a; color: #fff; padding: 20px; text-align: center; }
-a.button { background: #0066cc; color: #fff; padding: 10px 20px; border-radius: 4px; text-decoration: none; }
+header { background: #121a2a; color: #fff; padding: 60px 20px; text-align: center; }
+header h1 { margin: 0; font-size: 3rem; }
+header p { margin-top: 15px; font-size: 1.4rem; }
+section { padding: 60px 20px; }
+h2 { margin-bottom: 20px; }
+.packages { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+.package { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 20px; width: 280px; text-align: center; }
+.package h3 { margin-top: 0; }
+.package .price { font-size: 2rem; color: #0066cc; }
+.package ul { list-style: none; padding: 0; }
+.package li { margin: 8px 0; }
+.button { display: inline-block; background: #0066cc; color: #fff; padding: 12px 24px; border-radius: 4px; text-decoration: none; margin-top: 10px; }
+.cta { text-align: center; }
+form { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+form div { margin-bottom: 15px; }
+form label { display: block; margin-bottom: 5px; }
+form input, form textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+footer { background: #121a2a; color: #fff; text-align: center; padding: 20px; }
+footer a { color: #99c2ff; text-decoration: none; margin: 0 10px; }
+@media (max-width: 768px) { .packages { flex-direction: column; align-items: center; } }
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GA_MEASUREMENT_ID');
+</script>
 </head>
 <body>
 <header>
 <h1>Lead & Logic</h1>
-<p>Exklusive KI-Automation für dein Unternehmen</p>
+<p>Automatisiere deine Prozesse und steigere deine Effizienz</p>
+<a href="#kontakt" class="button">Jetzt Kontakt aufnehmen</a>
 </header>
-<section class="intro">
-<h2>Über uns</h2>
-<p>Wir bei Lead & Logic entwickeln maßgeschneiderte Automatisierungslösungen. Unser Fokus liegt auf stabilen Systemen, Wiederverwendbarkeit und sauberer Dokumentation.</p>
-</section>
-<section class="services">
-<h2>Leistungen</h2>
+<section id="pakete">
+<h2>Pakete</h2>
+<div class="packages">
+<div class="package">
+<h3>Starter</h3>
+<p class="price">999€</p>
 <ul>
-<li>n8n, Make & Zapier Integrationen</li>
-<li>APIs & Webhooks</li>
-<li>Google Sheets & Airtable Automationen</li>
-<li>CRM-Systeme & E-Mail-Automationen</li>
-<li>Social-Media-Automationen</li>
+<li>Analyse und Blueprint</li>
+<li>Implementierung einfacher Automationen</li>
+<li>E-Mail- und CRM-Integration</li>
+</ul>
+</div>
+<div class="package">
+<h3>Profi</h3>
+<p class="price">2.999€</p>
+<ul>
+<li>Umfassende Prozessautomatisierung</li>
+<li>Mehrere Systeme (n8n, Make, Zapier)</li>
+<li>Monitoring &amp; Fehlerbehandlung</li>
+</ul>
+</div>
+<div class="package">
+<h3>Enterprise</h3>
+<p class="price">Auf Anfrage</p>
+<ul>
+<li>Individuelle Lösungen und Skalierung</li>
+<li>Integrationen nach Maß</li>
+<li>Laufende Betreuung &amp; Optimierung</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="prozess">
+<h2>Ablauf</h2>
+<ul>
+<li><strong>Analyse:</strong> Wir analysieren bestehende Prozesse und identifizieren Automatisierungspotenzial.</li>
+<li><strong>Blueprint:</strong> Wir entwerfen einen klaren Automations-Blueprint mit Inputs &amp; Outputs.</li>
+<li><strong>Setup:</strong> Wir implementieren stabile Workflows mit n8n, Make oder Zapier.</li>
+<li><strong>Monitoring:</strong> Wir überwachen deine Automationen und optimieren laufend.</li>
 </ul>
 </section>
-<section class="cta" style="text-align: center;">
-<a href="#" class="button">Kontakt aufnehmen</a>
+<section id="kontakt">
+<h2>Kontakt</h2>
+<form action="https://formsubmit.co/info.leadandlogic@gmail.com" method="POST">
+<input type="hidden" name="_subject" value="Neue Anfrage über Lead & Logic Website">
+<div>
+<label for="name">Name</label>
+<input type="text" id="name" name="name" required>
+</div>
+<div>
+<label for="email">E-Mail</label>
+<input type="email" id="email" name="email" required>
+</div>
+<div>
+<label for="message">Nachricht</label>
+<textarea id="message" name="message" rows="5" required></textarea>
+</div>
+<button type="submit" class="button">Nachricht senden</button>
+</form>
+</section>
+<section id="faq">
+<h2>FAQ</h2>
+<h3>Was kostet eine Automatisierung?</h3>
+<p>Die Kosten hängen vom Umfang und der Komplexität ab. Schau dir unsere Pakete an oder kontaktiere uns für ein individuelles Angebot.</p>
+<h3>Welche Systeme unterstützt ihr?</h3>
+<p>Wir arbeiten mit n8n, Make, Zapier, Google Sheets, Airtable, CRM-Systemen und vielen weiteren APIs &amp; Webhooks.</p>
 </section>
 <footer>
 <p>&copy; 2026 Lead & Logic – KI Automatisierung</p>
+<p><a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
 </footer>
 </body>
 </html>
