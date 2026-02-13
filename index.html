@@ -221,6 +221,54 @@
       background: var(--accent-light);
     }
 
+    /* Container for consistent content width */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation bar styling */
+    .navbar {
+      background: var(--background);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar .logo {
+      font-weight: 700;
+      font-size: 1.3em;
+      color: var(--accent);
+    }
+
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar .nav-links a {
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Price styling for package cards */
+    .price {
+      font-size: 1.4em;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
     .qualification {
       display: flex;
       flex-direction: column;
@@ -261,6 +309,8 @@
   </style>
 </head>
 <body>
+  <!-- Hinweis: Die Navigation wurde entfernt, um das ursprüngliche Erscheinungsbild der Website beizubehalten. -->
+
   <!-- Hero Section -->
   <section class="hero">
     <h1>Autonome Lead‑ &amp; CRM‑Systeme für Agenturen</h1>
@@ -344,18 +394,21 @@
 
   <!-- Angebote Section -->
   <section class="section" id="angebote">
-    <h2>Angebotsstruktur</h2>
+    <h2>Pakete &amp; Preise</h2>
     <div class="offers">
       <div class="offer">
         <h3>Kernprodukt – Autonomes Lead‑System</h3>
+        <p class="price">ab&nbsp;5.000&nbsp;€</p>
         <p>Vollständige Implementierung aller vier Module inklusive Basistraining und Übergabe. Das System bleibt im Eigentum des Kunden.</p>
       </div>
       <div class="offer">
-        <h3>Erweiterung 1 – CRM &amp; Prozess‑Automatisierung</h3>
+        <h3>Erweiterung&nbsp;1 – CRM &amp; Prozess‑Automatisierung</h3>
+        <p class="price">ab&nbsp;2.000&nbsp;€</p>
         <p>Optimierung und Automatisierung bestehender Pipelines, Status‑Logik und Übergaben. Ideal für Unternehmen mit vorhandenen Leads, aber chaotischen Abläufen.</p>
       </div>
       <div class="offer">
-        <h3>Erweiterung 2 – Monitoring &amp; System‑Optimierung</h3>
+        <h3>Erweiterung&nbsp;2 – Monitoring &amp; System‑Optimierung</h3>
+        <p class="price">ab&nbsp;500&nbsp;€&nbsp;/&nbsp;Monat</p>
         <p>Regelmäßige KPI‑Analyse, Identifikation von Engpässen und laufende Stabilitäts‑Updates. Sichert langfristige Leistungsfähigkeit und Expansion.</p>
       </div>
     </div>
