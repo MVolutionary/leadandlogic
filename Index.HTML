@@ -1,1 +1,896 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lead &amp; Logic – Autonome Lead- &amp; Vertriebsautomatisierung</title>
+  <meta name="description" content="Autonome Lead- & CRM-Systeme für Agenturen mit 3–20 Mitarbeitenden. Automatisierte Recherche, Follow-ups und KPI-Monitoring. Skalieren ohne zusätzlichen Personalaufbau." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0a0a0a;
+      --panel:#111111;
+      --panel2:#151515;
+      --border:rgba(255,255,255,.10);
+      --text:#f2f2f2;
+      --muted:#b7b7b7;
+      --gold:#d4af37;
+      --gold2:#e5c469;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius:14px;
+      --max:1120px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(212,175,55,.10), transparent 60%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(212,175,55,.06), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:var(--gold); text-decoration:none}
+    a:hover{color:var(--gold2)}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:999;
+      background: rgba(10,10,10,.85);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:.2px;
+      color:var(--text);
+    }
+    .mark{
+      width:30px; height:30px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(212,175,55,.85), rgba(212,175,55,.25));
+      box-shadow: 0 10px 25px rgba(212,175,55,.12);
+      border:1px solid rgba(212,175,55,.35);
+    }
+    .nav-links{
+      display:flex; align-items:center; gap:18px;
+      list-style:none; margin:0; padding:0;
+    }
+    .nav-links a{color:var(--text); font-weight:600; font-size:.95rem; opacity:.92}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-cta{
+      display:flex; align-items:center; gap:10px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      border:1px solid rgba(212,175,55,.35);
+      background: linear-gradient(180deg, rgba(212,175,55,.95), rgba(212,175,55,.70));
+      color:#0a0a0a;
+      box-shadow: 0 12px 30px rgba(212,175,55,.10);
+      transition: transform .15s ease, filter .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn:active{transform:translateY(1px)}
+    .btn-ghost{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow:none;
+      font-weight:600;
+    }
+    .btn-ghost:hover{border-color: rgba(212,175,55,.35); color: var(--gold)}
+    .hamburger{
+      width:42px; height:42px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .hamburger span{
+      display:block; width:18px; height:2px; background: var(--text);
+      position:relative;
+      opacity:.9;
+    }
+    .hamburger span:before,.hamburger span:after{
+      content:""; position:absolute; left:0; width:18px; height:2px; background: var(--text);
+    }
+    .hamburger span:before{top:-6px}
+    .hamburger span:after{top:6px}
+
+    /* MOBILE DRAWER */
+    .drawer-backdrop{
+      position:fixed; inset:0; background: rgba(0,0,0,.55);
+      display:none; z-index:1000;
+    }
+    .drawer{
+      position:fixed; top:0; right:0; height:100%; width:min(360px, 92vw);
+      background: var(--panel);
+      border-left:1px solid var(--border);
+      box-shadow: var(--shadow);
+      transform: translateX(105%);
+      transition: transform .22s ease;
+      z-index:1001;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .drawer.open{transform: translateX(0)}
+    .drawer-backdrop.open{display:block}
+    .drawer-top{
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .drawer ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+    .drawer a{color:var(--text); font-weight:700; padding:10px 10px; border-radius:12px; border:1px solid transparent}
+    .drawer a:hover{border-color: rgba(212,175,55,.30); color:var(--gold)}
+    .drawer .legal{
+      margin-top:auto;
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding-top:12px;
+      border-top:1px solid var(--border);
+    }
+    .drawer .legal a{font-weight:600; opacity:.9}
+
+    /* HERO */
+    .hero{
+      padding:72px 0 26px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:28px;
+      align-items:start;
+    }
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-weight:700; color: var(--gold);
+      background: rgba(212,175,55,.10);
+      border:1px solid rgba(212,175,55,.20);
+      padding:8px 12px;
+      border-radius:999px;
+      width:max-content;
+    }
+    h1{
+      font-size: clamp(2.0rem, 4.4vw, 3.1rem);
+      line-height:1.1;
+      margin:14px 0 12px;
+      letter-spacing:-0.02em;
+    }
+    .hero p{
+      color:var(--muted);
+      font-size:1.05rem;
+      margin:0 0 18px;
+      max-width: 62ch;
+    }
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .meta{
+      margin-top:10px;
+      color: var(--muted);
+      font-size:.92rem;
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .panel h3{margin:0 0 10px; color:var(--text); font-size:1.05rem}
+    .checklist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+    .checklist li{display:flex; gap:10px; align-items:flex-start; color:var(--muted)}
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--gold);
+      margin-top:7px;
+      box-shadow: 0 0 0 6px rgba(212,175,55,.10);
+      flex:0 0 auto;
+    }
+
+    /* SECTIONS */
+    section{scroll-margin-top:90px}
+    .section{
+      padding:56px 0;
+    }
+    .section-head{
+      margin-bottom:18px;
+    }
+    .section h2{
+      font-size:1.8rem;
+      margin:0 0 10px;
+      letter-spacing:-0.01em;
+    }
+    .section .sub{
+      color:var(--muted);
+      margin:0;
+      max-width: 85ch;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .card{
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{margin:0 0 10px; color:var(--gold2); font-size:1.15rem}
+    .card ul{margin:0; padding-left:18px; color:var(--muted)}
+    .callout{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(212,175,55,.25);
+      background: rgba(212,175,55,.07);
+      color: var(--text);
+    }
+
+    /* MODULES */
+    .modules{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .module{
+      background: var(--panel2);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .module h3{margin:0 0 10px; color:var(--gold2); font-size:1.15rem}
+    .module ul{margin:0; padding-left:18px; color:var(--muted)}
+    .flow{
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius: var(--radius);
+      border:1px dashed rgba(212,175,55,.35);
+      color: var(--muted);
+      background: rgba(255,255,255,.02);
+      font-weight:600;
+    }
+
+    /* PRICING */
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .price-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+      position:relative;
+    }
+    .badge{
+      position:absolute; top:14px; right:14px;
+      background: rgba(212,175,55,.14);
+      border:1px solid rgba(212,175,55,.28);
+      color: var(--gold2);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.78rem;
+    }
+    .price-card h3{margin:0 0 6px; color: var(--text); font-size:1.1rem}
+    .price{
+      font-size:1.55rem;
+      font-weight:900;
+      color: var(--gold2);
+      margin:0 0 12px;
+      letter-spacing:-0.02em;
+    }
+    .price-card ul{margin:0; padding-left:18px; color: var(--muted)}
+    .price-card p{color: var(--muted); margin:12px 0 0}
+    .price-card .btn{margin-top:14px; width:100%}
+
+    /* FORM */
+    .form-wrap{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+    .form{
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .form h3{margin:0 0 10px; color:var(--gold2)}
+    .form p{margin:0 0 14px; color:var(--muted)}
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    label{display:block; font-weight:700; font-size:.9rem; margin:10px 0 6px; color: var(--text); opacity:.95}
+    input, select, textarea{
+      width:100%;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      outline:none;
+    }
+    textarea{min-height:92px; resize:vertical}
+    .hint{font-size:.9rem; color: var(--muted); margin-top:8px}
+    .hidden{display:none !important}
+
+    /* FOOTER */
+    footer{
+      border-top:1px solid var(--border);
+      padding:30px 0;
+      color: var(--muted);
+      background: rgba(0,0,0,.20);
+    }
+    .footer-inner{
+      display:flex; gap:14px; justify-content:space-between; align-items:center;
+      flex-wrap:wrap;
+    }
+    .footer-links{display:flex; gap:14px; flex-wrap:wrap}
+    .footer-links a{color:var(--muted); font-weight:600}
+    .footer-links a:hover{color:var(--gold)}
+
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .modules{grid-template-columns:1fr}
+      .pricing{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+    }
+    @media (max-width: 860px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="Start">
+          <span class="mark" aria-hidden="true"></span>
+          <span>Lead &amp; Logic</span>
+        </a>
+
+        <ul class="nav-links" aria-label="Navigation">
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#system">System</a></li>
+          <li><a href="#module">Module</a></li>
+          <li><a href="#preise">Preise</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+
+        <div class="nav-cta">
+          <a class="btn btn-ghost" href="impressum.html">Impressum</a>
+          <a class="btn btn-ghost" href="datenschutz.html">Datenschutz</a>
+          <a class="btn" href="#kontakt">Potenzial prüfen</a>
+
+          <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-controls="drawer" aria-expanded="false">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="Mobile Navigation">
+    <div class="drawer-top">
+      <div class="brand">
+        <span class="mark" aria-hidden="true"></span>
+        <strong>Lead &amp; Logic</strong>
+      </div>
+      <a class="btn btn-ghost" href="#" id="closeDrawer" aria-label="Menü schließen">Schließen</a>
+    </div>
+
+    <ul>
+      <li><a href="#problem" class="drawer-link">Problem</a></li>
+      <li><a href="#system" class="drawer-link">System</a></li>
+      <li><a href="#module" class="drawer-link">Module</a></li>
+      <li><a href="#preise" class="drawer-link">Preise</a></li>
+      <li><a href="#kontakt" class="drawer-link">Kontakt</a></li>
+    </ul>
+
+    <div class="legal">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">Autonome Lead- &amp; Vertriebsautomatisierung</div>
+            <h1>Autonome Lead‑ &amp; CRM‑Systeme für Agenturen mit 3–20 Mitarbeitenden</h1>
+            <p>
+              Manuelle Recherche, Follow-ups und CRM-Pflege bremsen Wachstum.
+              Ich baue Systeme, die Recherche, Scoring, Outreach und CRM-Updates automatisch steuern – strukturiert, messbar, skalierbar.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn" href="#kontakt">Automatisierungs‑Potenzial prüfen</a>
+              <a class="btn btn-ghost" href="#preise">Pakete &amp; Preise</a>
+            </div>
+
+            <div class="meta">Dauer: 3 Minuten · Kein Verkaufsgespräch ohne Systemklarheit</div>
+          </div>
+
+          <div class="panel" aria-label="Wofür das System steht">
+            <h3>Was das System übernimmt</h3>
+            <ul class="checklist">
+              <li><span class="dot"></span><span>Leads automatisch recherchieren</span></li>
+              <li><span class="dot"></span><span>Potenziale analysieren &amp; priorisieren</span></li>
+              <li><span class="dot"></span><span>Outreach-Sequenzen senden &amp; nachfassen</span></li>
+              <li><span class="dot"></span><span>Antworten klassifizieren &amp; Workflows triggern</span></li>
+              <li><span class="dot"></span><span>CRM &amp; KPIs im Closed Loop aktualisieren</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="section" id="problem">
+      <div class="container">
+        <div class="section-head">
+          <h2>Problem</h2>
+          <p class="sub">Manuelle Prozesse sind ein Skalierungsrisiko – weil sie Zeit binden, fehleranfällig sind und keine verlässliche Pipeline erzeugen.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Typische Engpässe</h3>
+            <ul>
+              <li>Manuelle Lead-Recherche und Qualifizierung</li>
+              <li>Verpasste oder verspätete Follow-ups</li>
+              <li>Unstrukturierte CRM-Pipelines</li>
+              <li>Medienbrüche zwischen Tools</li>
+              <li>Abhängigkeit von einzelnen Mitarbeitenden</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Kosten des Nicht-Handelns</h3>
+            <ul>
+              <li>Verlorene Leads und inkonsistente Pipeline</li>
+              <li>Operative Überlastung im Team</li>
+              <li>Skalierung nur durch zusätzliche Köpfe</li>
+              <li>Keine KPI-Transparenz und keine Optimierungsschleife</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Manuelle Prozesse skalieren linear – Systeme skalieren strukturell.</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM -->
+    <section class="section" id="system">
+      <div class="container">
+        <div class="section-head">
+          <h2>Lösung als System</h2>
+          <p class="sub">
+            Kein „Tool Setup“. Eine geschlossene Architektur, die alle Phasen Ihres Lead- und Vertriebsprozesses verbindet.
+          </p>
+        </div>
+
+        <div class="flow">Research → Analyse → Outreach → CRM → KPI → Feedback‑Loop</div>
+
+        <div class="callout" style="margin-top:14px;">
+          <strong>Eigentum &amp; Übergabe:</strong> Sie erhalten eine dokumentierte, wartbare Systemstruktur (inkl. Monitoring‑Logik). Ziel ist Stabilität, nicht Basteln.
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULES -->
+    <section class="section" id="module">
+      <div class="container">
+        <div class="section-head">
+          <h2>4 Module</h2>
+          <p class="sub">Modular aufgebaut. Skalierbar. Erweiterbar. Mit klaren Datenflüssen.</p>
+        </div>
+
+        <div class="modules">
+          <div class="module">
+            <h3>1) Research Engine</h3>
+            <ul>
+              <li>Automatische Lead-Recherche aus definierten Quellen</li>
+              <li>Datenaggregation, Bereinigung, Dublettenprüfung</li>
+              <li>Strukturierte Ablage (CRM/Datenbank)</li>
+            </ul>
+          </div>
+
+          <div class="module">
+            <h3>2) Analyse &amp; Scoring</h3>
+            <ul>
+              <li>Kriterienbasiertes Lead-Scoring</li>
+              <li>Segmentierung und Priorisierung</li>
+              <li>Datenanreicherung für bessere Treffer</li>
+            </ul>
+          </div>
+
+          <div class="module">
+            <h3>3) Outreach &amp; Follow-up</h3>
+            <ul>
+              <li>Personalisierte Sequenzen (E-Mail)</li>
+              <li>Follow-up Logik mit variablen Intervallen</li>
+              <li>Antwortklassifikation &amp; Routing</li>
+            </ul>
+          </div>
+
+          <div class="module">
+            <h3>4) CRM &amp; Monitoring</h3>
+            <ul>
+              <li>Automatische Pipeline-Updates und Status-Logik</li>
+              <li>KPI-Tracking (Basis-Dashboard) und Feedback‑Loop</li>
+              <li>Alerts, Fehler-Handling, Fallback‑Prozesse</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="section" id="ergebnisse">
+      <div class="container">
+        <div class="section-head">
+          <h2>Ergebnisse</h2>
+          <p class="sub">Ergebnisorientiert statt Tool-Fokus.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Konkrete Effekte</h3>
+            <ul>
+              <li>60–80 % weniger manuelle Recherchezeit</li>
+              <li>100 % Follow-up-Abdeckung</li>
+              <li>Saubere CRM-Daten und verlässliche Statuslogik</li>
+              <li>Planbare Pipeline statt Zufall</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Operative Entlastung</h3>
+            <ul>
+              <li>Weniger Abhängigkeit von Einzelpersonen</li>
+              <li>Weniger Medienbrüche</li>
+              <li>Messbare KPIs als Steuerungsgrundlage</li>
+              <li>Skalierung ohne linearen Personalaufbau</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section" id="preise">
+      <div class="container">
+        <div class="section-head">
+          <h2>Pakete &amp; Preise</h2>
+          <p class="sub">Klare Pakete. Klare Outputs. Keine „wir machen alles“-Leistungen.</p>
+        </div>
+
+        <div class="pricing">
+          <div class="price-card">
+            <h3>Schnupperpaket – Automations Starter</h3>
+            <div class="price">690 €</div>
+            <ul>
+              <li>1 definierte Automation (Single Workflow)</li>
+              <li>Integration (n8n / API / CRM)</li>
+              <li>Testphase &amp; Fehlerprüfung</li>
+              <li>Dokumentation &amp; Übergabe</li>
+            </ul>
+            <p>Ideal als Einstieg / Proof of Systemfähigkeit.</p>
+            <a class="btn" href="#kontakt">Potenzial prüfen</a>
+          </div>
+
+          <div class="price-card">
+            <h3>Paket 1 – CRM &amp; Prozess Basis</h3>
+            <div class="price">ab 1.490 €</div>
+            <ul>
+              <li>Pipeline-Struktur &amp; Status-Logik</li>
+              <li>Trigger-Automationen</li>
+              <li>Datenstruktur &amp; Bereinigung</li>
+              <li>1–2 Kern-Workflows</li>
+            </ul>
+            <a class="btn" href="#kontakt">Anfrage starten</a>
+          </div>
+
+          <div class="price-card">
+            <h3>Paket 2 – Outreach &amp; Follow-up</h3>
+            <div class="price">ab 2.490 €</div>
+            <ul>
+              <li>Personalisierte E-Mail-Sequenzen</li>
+              <li>Automatische Follow-ups</li>
+              <li>Antwort-Klassifizierung</li>
+              <li>Reply-Routing ins CRM</li>
+            </ul>
+            <a class="btn" href="#kontakt">Anfrage starten</a>
+          </div>
+
+          <div class="price-card">
+            <span class="badge">Kernprodukt</span>
+            <h3>Paket 3 – Autonomes Lead-System</h3>
+            <div class="price">ab 5.900 €</div>
+            <ul>
+              <li>Research Engine</li>
+              <li>KI Lead-Scoring</li>
+              <li>Outreach + CRM Closed Loop</li>
+              <li>KPI-Basis-Dashboard</li>
+              <li>System-Dokumentation</li>
+            </ul>
+            <a class="btn" href="#kontakt">Potenzial prüfen</a>
+          </div>
+
+          <div class="price-card">
+            <h3>Paket 4 – Monitoring &amp; Optimierung</h3>
+            <div class="price">ab 490 € / Monat</div>
+            <ul>
+              <li>Monitoring &amp; Alerts</li>
+              <li>Performance-Analyse</li>
+              <li>Bugfixing &amp; Stabilisierung</li>
+              <li>Laufende System-Optimierung</li>
+            </ul>
+            <a class="btn" href="#kontakt">Monitoring anfragen</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / FORM -->
+    <section class="section" id="kontakt">
+      <div class="container">
+        <div class="section-head">
+          <h2>Automatisierungs‑Potenzialanalyse</h2>
+          <p class="sub">Kurzes Formular. Strukturierte Daten. Webhook-ready für n8n-Weiterverarbeitung.</p>
+        </div>
+
+        <div class="form-wrap">
+          <div class="form">
+            <h3>Mini‑Check</h3>
+            <p>Wenn mindestens zwei Kriterien mit „Ja“ beantwortet werden, wird das Hauptformular freigeschaltet.</p>
+
+            <div class="row">
+              <div>
+                <label for="q_crm">CRM vorhanden?</label>
+                <select id="q_crm">
+                  <option value="">Bitte wählen</option>
+                  <option value="Ja">Ja</option>
+                  <option value="Nein">Nein</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="q_leads">Mehr als 50 Leads/Monat?</label>
+                <select id="q_leads">
+                  <option value="">Bitte wählen</option>
+                  <option value="Ja">Ja</option>
+                  <option value="Nein">Nein</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="q_process">Wiederkehrender Vertriebsprozess?</label>
+                <select id="q_process">
+                  <option value="">Bitte wählen</option>
+                  <option value="Ja">Ja</option>
+                  <option value="Nein">Nein</option>
+                </select>
+              </div>
+
+              <div>
+                <label>&nbsp;</label>
+                <button class="btn" type="button" id="unlock">Hauptformular freischalten</button>
+              </div>
+            </div>
+
+            <p class="hint" id="qualihint">Hinweis: Kein Call‑Produkt. Fokus ist Systembau mit Dokumentation und Monitoring.</p>
+          </div>
+
+          <div class="form hidden" id="mainForm">
+            <h3>Hauptformular</h3>
+            <p>Diese Daten sind so strukturiert, dass sie per Webhook (n8n) weiterverarbeitet werden können.</p>
+
+            <form id="potenzialForm">
+              <div class="row">
+                <div>
+                  <label for="companyType">Unternehmensart</label>
+                  <select id="companyType" name="companyType" required>
+                    <option value="">Bitte wählen</option>
+                    <option value="Marketing-Agentur">Marketing‑Agentur</option>
+                    <option value="Recruiting-Agentur">Recruiting‑Agentur</option>
+                    <option value="B2B-Beratung">B2B‑Beratung / Coaching</option>
+                    <option value="SaaS">SaaS</option>
+                    <option value="Sonstiges">Sonstiges</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="teamSize">Teamgröße</label>
+                  <select id="teamSize" name="teamSize" required>
+                    <option value="">Bitte wählen</option>
+                    <option value="1-2">1–2</option>
+                    <option value="3-10">3–10</option>
+                    <option value="11-20">11–20</option>
+                    <option value="20+">20+</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div>
+                  <label for="monthlyLeads">Monatliches Lead‑Volumen</label>
+                  <select id="monthlyLeads" name="monthlyLeads" required>
+                    <option value="">Bitte wählen</option>
+                    <option value="<50">&lt; 50</option>
+                    <option value="50-200">50–200</option>
+                    <option value="200-500">200–500</option>
+                    <option value="500+">500+</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="crmUsed">CRM</label>
+                  <select id="crmUsed" name="crmUsed" required>
+                    <option value="">Bitte wählen</option>
+                    <option value="HubSpot">HubSpot</option>
+                    <option value="Pipedrive">Pipedrive</option>
+                    <option value="Salesforce">Salesforce</option>
+                    <option value="Kein CRM">Kein CRM</option>
+                    <option value="Anderes">Anderes</option>
+                  </select>
+                </div>
+              </div>
+
+              <label for="leadGen">Wie werden Leads aktuell generiert?</label>
+              <select id="leadGen" name="leadGen" multiple>
+                <option value="Manuelle Recherche">Manuelle Recherche</option>
+                <option value="LinkedIn (Inbound/Content)">LinkedIn (Inbound/Content)</option>
+                <option value="Ads">Ads</option>
+                <option value="Empfehlungen">Empfehlungen</option>
+                <option value="Kein strukturierter Prozess">Kein strukturierter Prozess</option>
+              </select>
+              <div class="hint">Mehrfachauswahl möglich (Desktop: Strg/⌘ halten).</div>
+
+              <label for="bottleneck">Größter Engpass im Vertrieb</label>
+              <textarea id="bottleneck" name="bottleneck" placeholder="z. B. Qualifizierung, Follow-ups, CRM-Pflege, Datenqualität …" required></textarea>
+
+              <label for="goal">Ziel des Systems</label>
+              <textarea id="goal" name="goal" placeholder="z. B. planbare Terminbuchungen, mehr Antworten, saubere Pipeline …" required></textarea>
+
+              <label for="budget">Budgetrahmen</label>
+              <select id="budget" name="budget" required>
+                <option value="">Bitte wählen</option>
+                <option value="690">Schnupperpaket (690 €)</option>
+                <option value="1490">ab 1.490 €</option>
+                <option value="2490">ab 2.490 €</option>
+                <option value="5900">ab 5.900 €</option>
+                <option value="490mo">ab 490 € / Monat (Monitoring)</option>
+              </select>
+
+              <label for="email">Geschäftliche E‑Mail</label>
+              <input id="email" name="email" type="email" placeholder="name@firma.de" required />
+
+              <button class="btn" type="submit">Automatisierungs‑Potenzial prüfen</button>
+              <p class="hint">Nach Absenden: Webhook‑Weitergabe (n8n) + Eingangsbestätigung. Keine Calls ohne Systemklarheit.</p>
+            </form>
+
+            <p class="hint hidden" id="submitMsg"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>© <span id="year"></span> Lead &amp; Logic – Marcel Vogelsang</div>
+        <div class="footer-links">
+          <a href="mailto:info.leadandlogic@gmail.com">info.leadandlogic@gmail.com</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Drawer
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    const backdrop = document.getElementById('backdrop');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const drawerLinks = Array.from(document.querySelectorAll('.drawer-link'));
+
+    function openDrawer(){
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      hamburger.setAttribute('aria-expanded','true');
+    }
+    function hideDrawer(){
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+    }
+    hamburger?.addEventListener('click', openDrawer);
+    closeDrawer?.addEventListener('click', (e)=>{e.preventDefault(); hideDrawer();});
+    backdrop?.addEventListener('click', hideDrawer);
+    drawerLinks.forEach(a=>a.addEventListener('click', hideDrawer));
+
+    // Quali unlock
+    const unlockBtn = document.getElementById('unlock');
+    const mainForm = document.getElementById('mainForm');
+    unlockBtn.addEventListener('click', () => {
+      const q1 = document.getElementById('q_crm').value === 'Ja';
+      const q2 = document.getElementById('q_leads').value === 'Ja';
+      const q3 = document.getElementById('q_process').value === 'Ja';
+      const score = (q1?1:0) + (q2?1:0) + (q3?1:0);
+
+      if(score >= 2){
+        mainForm.classList.remove('hidden');
+        mainForm.scrollIntoView({behavior:'smooth', block:'start'});
+      } else {
+        alert('Aktuell fehlen Basis-Kriterien (mind. 2x „Ja“). Wenn Sie möchten, starten Sie mit dem Schnupperpaket (690 €) und bauen die Basis strukturiert auf.');
+      }
+    });
+
+    // Form submit (placeholder - replace with your Netlify/n8n handling)
+    const form = document.getElementById('potenzialForm');
+    const submitMsg = document.getElementById('submitMsg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Replace with Netlify Forms or webhook POST to n8n.
+      submitMsg.textContent = 'Danke. Anfrage ist erfasst. Nächster Schritt: strukturierte Potenzialanalyse per E-Mail.';
+      submitMsg.classList.remove('hidden');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
